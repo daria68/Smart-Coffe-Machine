@@ -50,3 +50,8 @@ Contextul actual panedmic aduce cresterea numarului de persoane care lucrează r
 
 ### Cerințe care țin de software, quality of life, control din driver
 
+# Alocarea rolurilor
+## Oana
+## Viju
+## Daria
+## Vero
