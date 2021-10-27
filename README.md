@@ -46,3 +46,7 @@ Contextul actual panedmic aduce cresterea numarului de persoane care lucrează r
  
 ### Cerințe nonfuncționale
 
+### Cerințe care țin de sănătate, securitate, modificări fizice ale automatului
+
+### Cerințe care țin de software, quality of life, control din driver
+
