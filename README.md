@@ -25,6 +25,7 @@ Contextul actual panedmic aduce cresterea numarului de persoane care lucrează r
   - curatare automata(programata) pe timpul noptii
 - Ca iubitor de cafea îmi doresc să
   - sa pot sa-mi personalizez retele
+  - sa selecteze gradul de macinare
 - Ca iubitor de cafea (cu diabet/diverse probleme de sănătate), îmi doresc să
   - sa controlez nivelul de zahar din băutură
   - dupa o anumita oră sa nu ma mai lase sa-mi prepar cafea 
@@ -35,10 +36,18 @@ Contextul actual panedmic aduce cresterea numarului de persoane care lucrează r
   - daca se prepara batura cu lapte sau apa
 
 ## Colectarea cerințelor
-- Pregătirea cafelei de la distanță cu ajutorul aplicației software
-- Posibilitatea alegerii dintr-o gama variată de arome, dar și de realizare a unei rețete personalizate din secțiunea ”Categorii” a aplicației.
-- Selectarea gradului de macinare pentru pasionați cu ajutorul telefonului
-- Existența unui mod de salvare a rețetelor compuse pentru a putea fi folosite și în alte ocazii.
+- Pregătirea cafelei de la distanță 
+- Posibilitatea alegerii dintr-o gama variată de arome/ tipuri de lichide/ ceaiuri
+- Realizare a unor rețete personalizate 
+- Selectarea gradului de macinare 
+- Salvaree a rețetelor compuse pentru a putea fi folosite ulterior
+- Control asupra cantitatilor (zahar, lapte, apa)
+- Autosesizare zi-noapte
+- Functionarea dupa un program personlizat de-a lungul unei saptamani
+- Incarcare melodie/ playlist 
+- Notificari de tipul - ready
+- Curatare automata
+- Personalizarea functiilor care interactioneaza cu mediul inconjurator
 
 ## Interpretarea și prioritizarea cerințelor 
 
