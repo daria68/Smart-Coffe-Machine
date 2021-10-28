@@ -75,7 +75,10 @@ Descriu calitati de sistem, răspund întrebărilor de tipul cum trebuie să fie
 ### Cerințe care țin de software, quality of life, control din driver
 
 # Alocarea rolurilor
-## Oana: design aplicatie
-## Viju: server, comunicarea cu internetul
-## Daria: design aplicatie
-## Vero: server, comunicarea cu internetul
+:ghost: Oana: design aplicatie
+
+:space_invader: Viju: server, comunicarea cu internetul
+
+:alien: Daria: design aplicatie
+
+:robot: Vero: server, comunicarea cu internetul
