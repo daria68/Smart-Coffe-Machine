@@ -52,15 +52,30 @@ Contextul actual panedmic aduce cresterea numarului de persoane care lucrează r
 ## Interpretarea și prioritizarea cerințelor 
 
 ### Cerințe funcționale
+Nevoi care au reieșit dintr-un user story, și răspund la întrebarea: ce trebuie aplicația să facă?
+
+- sistem de login
+- meniu pentru diverse categorii
+- notificari in bara de stare
+- interfata sugestiva
  
 ### Cerințe nonfuncționale
+Descriu calitati de sistem, răspund întrebărilor de tipul cum trebuie să fie un anumit feature sau aplicația cu totul?
+
+- automatul trebuie sa aiba o boxa incorporata
+- automatul trebuie sa aiba senzori de lumina
+- automatul trebuie sa aiba posibilitatea reglarii gradului de macinare
+- automatul trebuie sa aiba functia de curatare automata
+- automatul trebuie sa aiba container pentru stocarea paharelor de diferite dimensiuni
+- automatul trebuie sa aiba functie pentru reglarea cantitatii de indulcitor
+- automatul trebuie sa aiba posibilitatea alegerii din diverse tipuri de ceaiuri
 
 ### Cerințe care țin de sănătate, securitate, modificări fizice ale automatului
 
 ### Cerințe care țin de software, quality of life, control din driver
 
 # Alocarea rolurilor
-## Oana
-## Viju
-## Daria
-## Vero
+## Oana: design aplicatie
+## Viju: server, comunicarea cu internetul
+## Daria: design aplicatie
+## Vero: server, comunicarea cu internetul
