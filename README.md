@@ -70,10 +70,6 @@ Descriu calitati de sistem, răspund întrebărilor de tipul cum trebuie să fie
 - automatul trebuie sa aiba functie pentru reglarea cantitatii de indulcitor
 - automatul trebuie sa aiba posibilitatea alegerii din diverse tipuri de ceaiuri
 
-### Cerințe care țin de sănătate, securitate, modificări fizice ale automatului
-
-### Cerințe care țin de software, quality of life, control din driver
-
 # Alocarea rolurilor
 :ghost: Oana: design aplicatie
 
