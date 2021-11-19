@@ -7,9 +7,9 @@
 - Programul va trebui să comunice folosind două protocoluri: ```HTTP```și ```MQTT```. 
 
 # Programul trebuie să respecte următoarele cerințe (2.5p):
-- Expune un Rest API HTTP – documentat folosind Open API (Swagger) 
-- Expune un API MQTT – documentat folosind AsyncAPI
-- Aplicația să aibă minim 5 funcționalități – puteți să vă gândiți la ele ca sell points ale aplicației. Depinde de aplicația pe care v-ați propus să o faceți, dar chestii de genul o funcționalitate e scăderea, o altă funcționalitate e adunarea, nu înseamnă chiar că sunt diferite 
+- Expune un Rest ```API HTTP``` – documentat folosind Open API (Swagger) 
+- Expune un ```API MQTT``` – documentat folosind AsyncAPI
+- Aplicația să aibă minim ```5 funcționalități``` – puteți să vă gândiți la ele ca sell points ale aplicației. Depinde de aplicația pe care v-ați propus să o faceți, dar chestii de genul o funcționalitate e scăderea, o altă funcționalitate e adunarea, nu înseamnă chiar că sunt diferite 
 - Tot ce faceți să se găsească într-un singur repo.
 
 # Pentru puncte:
