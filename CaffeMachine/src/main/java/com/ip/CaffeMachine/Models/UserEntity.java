@@ -9,10 +9,18 @@ public class UserEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id_user; //primary key
 
-    @Column(name= "username")
     private String username;
+    private String password;
 
-    public long getId_user() {
+    public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+	public long getId_user() {
         return id_user;
     }
 

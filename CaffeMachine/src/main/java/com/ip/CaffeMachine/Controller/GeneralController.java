@@ -1,15 +1,12 @@
 package com.ip.CaffeMachine.Controller;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ip.CaffeMachine.Models.CoffeRecipeEntity;
-import com.ip.CaffeMachine.Models.UserEntity;
 import com.ip.CaffeMachine.Repo.CoffeRecipeRepo;
 import com.ip.CaffeMachine.Repo.UserRepo;
 
 import java.util.ArrayList;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 import org.modelmapper.ModelMapper;
@@ -40,6 +37,9 @@ public class GeneralController {
         
         for(Object obj: result) {
         	CoffeRecipeEntity coffe = modelMapper.map(obj, CoffeRecipeEntity.class);
+        	if(coffe.getTitle()== "" || coffe.getTitle()== "puro") {
+        		continue;
+        	}
         	// save into the database
             coffeRecipeRepo.save(coffe);
         }
@@ -54,4 +54,6 @@ public class GeneralController {
 	
 		return array.get(0).toString();
 	}
+    
+    
 }
