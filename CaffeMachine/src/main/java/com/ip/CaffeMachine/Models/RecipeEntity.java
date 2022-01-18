@@ -7,12 +7,12 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "coffe_recipes")
-public class CoffeRecipeEntity {
+@Table(name = "recipes")
+public class RecipeEntity {
 	
 	String title;
 	String description;
-	ArrayList ingredients;
+	ArrayList<String> ingredients;
 	@Id 
 	Long id;
 	
@@ -28,10 +28,10 @@ public class CoffeRecipeEntity {
 	public void setDescription(String description) {
 		this.description = description;
 	}
-	public ArrayList getIngredients() {
+	public ArrayList<String> getIngredients() {
 		return ingredients;
 	}
-	public void setIngredients(ArrayList ingredients) {
+	public void setIngredients(ArrayList<String> ingredients) {
 		this.ingredients = ingredients;
 	}
 	public Long getId() {

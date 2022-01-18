@@ -1,12 +1,16 @@
 package com.ip.CaffeMachine.Controller;
 
-import com.ip.CaffeMachine.Models.CoffeRecipeEntity;
-import com.ip.CaffeMachine.Repo.CoffeRecipeRepo;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.ip.CaffeMachine.Models.RecipeEntity;
+import com.ip.CaffeMachine.Repo.RecipeRepo;
 import com.ip.CaffeMachine.Repo.UserRepo;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.util.ResourceUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 import org.modelmapper.ModelMapper;
@@ -19,7 +23,7 @@ public class GeneralController {
     UserRepo userRepo;
     
     @Autowired
-    CoffeRecipeRepo coffeRecipeRepo;
+    RecipeRepo recipeRepo;
 
     @GetMapping(path = "/welcome")
     public String getPage() {
@@ -27,7 +31,7 @@ public class GeneralController {
     }
     
     // TODO: de apelat la deschiderea aplicatiei + de verificat daca exista deja in baza de date
-    @PostMapping(path = "/SampleAPI")
+    @PostMapping(path = "/insert/recipes")
     public void processSampleAPI() {
     	ModelMapper modelMapper = new ModelMapper();
     	
@@ -35,25 +39,45 @@ public class GeneralController {
         RestTemplate restTemplate = new RestTemplate();
         ArrayList result = restTemplate.getForObject(uri, ArrayList.class);
         
+        // read de coffe recipes from the API
         for(Object obj: result) {
-        	CoffeRecipeEntity coffe = modelMapper.map(obj, CoffeRecipeEntity.class);
-        	if(coffe.getTitle()== "" || coffe.getTitle()== "puro") {
+        	RecipeEntity coffe = modelMapper.map(obj, RecipeEntity.class);
+        	if(coffe.getTitle()== "" || coffe.getTitle().equals("puro")) {
         		continue;
         	}
         	// save into the database
-            coffeRecipeRepo.save(coffe);
+        	recipeRepo.save(coffe);
         }
+
+        try {
+        	ObjectMapper mapper = new ObjectMapper();
+            ArrayList list = mapper.readValue(ResourceUtils.getFile("classpath:drinks.json"), ArrayList.class);
+            for(Object obj: list) {
+            	RecipeEntity drink = modelMapper.map(obj, RecipeEntity.class);
+            	if(drink.getTitle()== "") {
+            		continue;
+            	}
+            	// save into the database
+            	recipeRepo.save(drink);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+       
     }
     
     @GetMapping(path = "/coffe_recipe/{id}")
 	public String updateUser (@PathVariable Long id){
     	// get the first ingredient from a type of coffe
     	
-		CoffeRecipeEntity coffe = coffeRecipeRepo.findById(id).get();
+		RecipeEntity coffe = recipeRepo.findById(id).get();
 		ArrayList array = coffe.getIngredients();
 	
 		return array.get(0).toString();
 	}
+    
+    //GetMapping(path= "/make/drink")
+ 
     
     
 }
