@@ -14,8 +14,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ip.CaffeMachine.CoffeMachineApplication;
+import com.ip.CaffeMachine.Exception.CustomException;
 import com.ip.CaffeMachine.Models.UserEntity;
 import com.ip.CaffeMachine.Repo.UserRepo;
+import com.ip.CaffeMachine.Request.DayIntervalRequest;
 
 //ENDPOINTS
 @RestController
@@ -24,17 +26,15 @@ public class UserController {
 
 	@Autowired
 	UserRepo userRepo;
-
-	/*@GetMapping(value = "/findAll")
-	public List<UserEntity> getUsers(){
-		// we don't need them in the project
-		return userRepo.findAll();
-	}*/
 	
 	@PostMapping(path = "/register",
 				consumes = {MediaType.APPLICATION_JSON_VALUE} // good practice: sometimes Postman confuses them with XMLs (Oana)
 	)
 	public String createUser(@RequestBody UserEntity user){
+		if(userRepo.findByUsername(user.getUsername())!= null) {
+			return "This username already exists";
+		}
+	
 		userRepo.save(user);
 		return "New user has been created!";
 	}
@@ -46,15 +46,20 @@ public class UserController {
 		List<UserEntity> allUsers = userRepo.findAll();
 		
 		for(UserEntity u : allUsers) {
-			System.out.println(user.getUsername());
-			System.out.println(u.getUsername());
 			if(user.getUsername().equals(u.getUsername()) && user.getPassword().equals(u.getPassword())) {
-				CoffeMachineApplication.setCurrentUser(user);
+				CoffeMachineApplication.setCurrentUser(u);
 				return "User has logged in!";
 			}
 		}
 		
 		return "User doesn't exists or the password is incorect!";
+		
+	}
+	
+	@GetMapping(path = "/logout")
+	public String logoutUser(){
+		CoffeMachineApplication.setCurrentUser(null);
+		return "You logged out! See you next time :)";
 		
 	}
 	
@@ -77,4 +82,20 @@ public class UserController {
 		userRepo.delete(deleteUser);
 		return "User has been deleted!";
 	}
+	
+	@PutMapping(path= "/day/interval", 
+			consumes = {MediaType.APPLICATION_JSON_VALUE}
+    )
+    public String updateInterval(@RequestBody DayIntervalRequest interval) {
+    	UserEntity currentUser = CoffeMachineApplication.getCurrentUser();
+    	if(currentUser == null) {
+			throw new CustomException("You need to be logged in to do this operation!"); 
+		}
+    	UserEntity updatedUser = userRepo.findById(currentUser.getUserId()).get();
+		
+    	updatedUser.setDayStart(interval.getDayStart());
+    	updatedUser.setDayEnd(interval.getDayEnd());
+    	userRepo.save(updatedUser);
+    	return "Your day interval has been set";
+    }
 }

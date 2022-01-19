@@ -11,7 +11,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.ip.CaffeMachine.CoffeMachineApplication;
 import com.ip.CaffeMachine.Exception.CustomException;
+import com.ip.CaffeMachine.Models.UserEntity;
 import com.ip.CaffeMachine.Repo.RecipeRepo;
 import com.ip.CaffeMachine.Repo.UserRepo;
 import com.ip.CaffeMachine.Request.DrinkRequest;
@@ -31,7 +33,7 @@ public class DrinkController {
     			produces = {MediaType.APPLICATION_JSON_VALUE}
     )
     public DrinkResponse makeDrink(@RequestBody DrinkRequest drink) {
-    	// if it's night do not let the user make coffe
+    	// if it's night time do not let the user make coffe
     	if(!verifyIfIsDay() && verifyIfContainsCoffe(drink)) {
     		throw new CustomException("It's too late for coffee :)");
     	}else {
@@ -60,11 +62,17 @@ public class DrinkController {
 		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("HH");  
 		LocalDateTime now = LocalDateTime.now();  
 		int currentHour =  Integer.parseInt(dtf.format(now));
-		//TODO de luat din baza de date
-		if((currentHour >= 19 && currentHour <= 24) || (currentHour >= 0 && currentHour <= 5)) {
-			// the night period is between: 7 PM and 5 AM
-			return false;
+		UserEntity currentUser = CoffeMachineApplication.getCurrentUser();
+		
+		if(currentUser == null) {
+			throw new CustomException("You need to be logged in to do this operation!"); 
+		}else {
+			 if((currentHour >= Integer.parseInt(dtf.format(currentUser.getDayEnd())) && currentHour <= 24) || 
+						(currentHour >= 0 && currentHour <= Integer.parseInt(dtf.format(currentUser.getDayStart())))) {
+					return false;
+				}
 		}
+		
 		return true;
 	}
 }

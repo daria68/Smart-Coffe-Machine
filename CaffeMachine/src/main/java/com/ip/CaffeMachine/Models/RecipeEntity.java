@@ -4,17 +4,21 @@ import java.util.ArrayList;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
 @Table(name = "recipes")
 public class RecipeEntity {
 	
-	String title;
-	String description;
-	ArrayList<String> ingredients;
+	private String title;
+	private String description;
+	private ArrayList<String> ingredients;
 	@Id 
-	Long id;
+	private Long id;
+	
+	@OneToOne(mappedBy = "recipe")
+    private ProgramEntity program;
 	
 	public String getTitle() {
 		return title;
@@ -40,4 +44,11 @@ public class RecipeEntity {
 	public void setId(Long id) {
 		this.id = id;
 	}
+	public ProgramEntity getProgram() {
+		return program;
+	}
+	public void setProgram(ProgramEntity program) {
+		this.program = program;
+	}
+	
 }
