@@ -7,6 +7,19 @@
 4. com.ip.CaffeMachine.Models - database entities (direct relationships with them)
 5. com.ip.CaffeMachine.Repo - services for database queries (direct relationship with the database)
 6. com.ip.CaffeMachine.Exception - custom exception for throwing without stack trace
+
+### Functionalitati aplicatie(sell points)
+1. Un user poate sa isi creeze cont nou folosind un username unic si o parola
+2. Toate functionalitatile masinii de cafea sunt valabile doar daca userul este logat 
+3. User se poate loga/deloga
+4. Userul isi poate udapta profilul: username, parola, intervalul de activitate
+5. Userul isi poate sterge contul si face altul
+6. Pregatirea bauturii de la distanta
+7. Realizarea si salvarea unor retete personalizate
+8. Programarea pe fiecare zi a sapatamanii sau doar pe anumite zile si ore
+9. Posibilitatea preparii instant a cafelei
+10. Controlul bauturilor care contin cafea pentru intervalul de noapte stabilit de utilizator
+11. Retete variate, date reale extrase printr-un API online
    
 #### Used API for taking the real coffe recipes
 [https://api.sampleapis.com/coffee/hot](https://api.sampleapis.com/coffee/hot)
