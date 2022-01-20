@@ -66,14 +66,4 @@ public class GeneralController {
        
     }
     
-//    @GetMapping(path = "/coffe_recipe/{id}")
-//	public String updateUser (@PathVariable Long id){
-//    	// get the first ingredient from a type of coffe
-//    	
-//		RecipeEntity coffe = recipeRepo.findById(id).get();
-//		ArrayList array = coffe.getIngredients();
-//	
-//		return array.get(0).toString();
-//	}
-    
 }

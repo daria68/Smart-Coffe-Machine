@@ -2,11 +2,11 @@ package com.ip.CaffeMachine.Response;
 
 public class DrinkResponse {
 
-	String title;
-	Double temperature;
-	Double sugar;
-	String liquid;
-	String description;
+	private String title;
+	private Double temperature;
+	private Double sugar;
+	private String liquid;
+	private String description;
 	
 	public String getTitle() {
 		return title;
@@ -38,4 +38,5 @@ public class DrinkResponse {
 	public void setDescription(String description) {
 		this.description = description;
 	}
+	
 }

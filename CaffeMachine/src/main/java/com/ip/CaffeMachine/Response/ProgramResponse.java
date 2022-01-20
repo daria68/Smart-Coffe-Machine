@@ -7,7 +7,7 @@ public class ProgramResponse {
 	private LocalTime startingTime;
 	private String day;
 	private RecipeResponse recipe;
-	private PersonalizedDrinkResponse personalizedDrink;
+	private DrinkResponse drink;
 	
 	public LocalTime getStartingTime() {
 		return startingTime;
@@ -27,11 +27,12 @@ public class ProgramResponse {
 	public void setRecipe(RecipeResponse recipe) {
 		this.recipe = recipe;
 	}
-	public PersonalizedDrinkResponse getPersonalizedDrink() {
-		return personalizedDrink;
+	public DrinkResponse getDrink() {
+		return drink;
 	}
-	public void setPersonalizedDrink(PersonalizedDrinkResponse personalizedDrink) {
-		this.personalizedDrink = personalizedDrink;
+	public void setDrink(DrinkResponse drink) {
+		this.drink = drink;
 	}
+	
 	
 }

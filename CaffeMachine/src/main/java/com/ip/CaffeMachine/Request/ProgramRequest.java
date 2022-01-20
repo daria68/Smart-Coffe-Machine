@@ -6,7 +6,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.format.annotation.DateTimeFormat.ISO;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.ip.CaffeMachine.Models.PresonalizedDrinkEntity;
+import com.ip.CaffeMachine.Models.DrinkEntity;
 
 
 public class ProgramRequest {
@@ -14,11 +14,8 @@ public class ProgramRequest {
 	@DateTimeFormat(iso = ISO.TIME)
 	@JsonFormat(pattern = "HH:mm")
 	private LocalTime startingTime;
-	
 	private String day;
-	private String recipeTitle = null; // optional
-	private PresonalizedDrinkEntity personalizedDrink = null; //optional
-	
+	private DrinkRequest drink;
 	
 	public LocalTime getStartingTime() {
 		return startingTime;
@@ -32,17 +29,11 @@ public class ProgramRequest {
 	public void setDay(String day) {
 		this.day = day;
 	}
+	public DrinkRequest getDrink() {
+		return drink;
+	}
+	public void setDrink(DrinkRequest drink) {
+		this.drink = drink;
+	}
 	
-	public String getRecipeTitle() {
-		return recipeTitle;
-	}
-	public void setRecipeTitle(String recipeTitle) {
-		this.recipeTitle = recipeTitle;
-	}
-	public PresonalizedDrinkEntity getPersonalizedDrink() {
-		return personalizedDrink;
-	}
-	public void setPersonalizedDrink(PresonalizedDrinkEntity personalizedDrink) {
-		this.personalizedDrink = personalizedDrink;
-	}
 }

@@ -11,14 +11,14 @@ import javax.persistence.Table;
 @Table(name = "recipes")
 public class RecipeEntity {
 	
+	@Id 
+	private Long id;
 	private String title;
 	private String description;
 	private ArrayList<String> ingredients;
-	@Id 
-	private Long id;
 	
 	@OneToOne(mappedBy = "recipe")
-    private ProgramEntity program;
+    private DrinkEntity drink;
 	
 	public String getTitle() {
 		return title;
@@ -44,11 +44,11 @@ public class RecipeEntity {
 	public void setId(Long id) {
 		this.id = id;
 	}
-	public ProgramEntity getProgram() {
-		return program;
+	public DrinkEntity getDrink() {
+		return drink;
 	}
-	public void setProgram(ProgramEntity program) {
-		this.program = program;
+	public void setDrink(DrinkEntity drink) {
+		this.drink = drink;
 	}
 	
 }

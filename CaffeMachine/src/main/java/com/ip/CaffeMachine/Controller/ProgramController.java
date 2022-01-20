@@ -15,9 +15,11 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.ip.CaffeMachine.CoffeMachineApplication;
 import com.ip.CaffeMachine.Exception.CustomException;
+import com.ip.CaffeMachine.Models.DrinkEntity;
 import com.ip.CaffeMachine.Models.ProgramEntity;
 import com.ip.CaffeMachine.Models.RecipeEntity;
 import com.ip.CaffeMachine.Models.UserEntity;
+import com.ip.CaffeMachine.Repo.DrinkRepo;
 import com.ip.CaffeMachine.Repo.ProgramRepo;
 import com.ip.CaffeMachine.Repo.RecipeRepo;
 import com.ip.CaffeMachine.Repo.UserRepo;
@@ -38,6 +40,9 @@ public class ProgramController {
 	@Autowired
 	RecipeRepo recipeRepo;
 	
+	@Autowired
+	DrinkRepo drinkRepo;
+	
 	@PostMapping(path= "/create", 
 			consumes = {MediaType.APPLICATION_JSON_VALUE}
     )
@@ -51,20 +56,14 @@ public class ProgramController {
     	ProgramEntity p = modelMapper.map(program, ProgramEntity.class);
     	p.setUser(currentUser);
     	
-    	if(program.getRecipeTitle()!= null && program.getPersonalizedDrink()!= null) {
-    		return "You need to choose one of them!";
-    	}
+    	DrinkEntity drink = modelMapper.map(program.getDrink(), DrinkEntity.class);
+    	//I need to set the recipe and the user for drink
+    	drink.setRecipe(recipeRepo.findByTitle(program.getDrink().getRecipeTitle()));
+    	drink.setUser(currentUser);
     	
-    	if(program.getRecipeTitle()== null && program.getPersonalizedDrink()== null) {
-    		return "You need to choose one of them!";
-    	}
-    	
-    	if(program.getRecipeTitle()!= null) {
-    		RecipeEntity recipe = recipeRepo.findByTitle(program.getRecipeTitle());
-    		p.setRecipe(recipe);
-    	}else{
-    		p.setPersonalizedDrink(program.getPersonalizedDrink());
-    	}
+    	// save the drink first because the programs FK refers drinks
+    	drinkRepo.save(drink);
+    	p.setDrink(drink);
     	
     	programRepo.save(p);
     	
@@ -99,9 +98,16 @@ public class ProgramController {
 		}
     	ProgramEntity updatedProgram = programRepo.findById(programId).get();
     	updatedProgram.setDay(program.getDay());
-    	updatedProgram.setPersonalizedDrink(program.getPersonalizedDrink());
-    	updatedProgram.setRecipe(recipeRepo.findByTitle(program.getRecipeTitle()));
     	updatedProgram.setStartingTime(program.getStartingTime());
+    	
+    	DrinkEntity updatedDrink = drinkRepo.findById(updatedProgram.getDrink().getId()).get();
+    	updatedDrink.setTitle(program.getDrink().getTitle());
+    	updatedDrink.setLiquid(program.getDrink().getLiquid());
+    	updatedDrink.setSugar(program.getDrink().getSugar());
+    	updatedDrink.setTemperature(program.getDrink().getTemperature());
+    	updatedDrink.setRecipe(recipeRepo.findByTitle(program.getDrink().getRecipeTitle()));
+    	
+    	drinkRepo.save(updatedDrink);
     	
     	programRepo.save(updatedProgram);
     	

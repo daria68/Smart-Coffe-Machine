@@ -7,6 +7,7 @@ public class RecipeResponse {
 	private String title;
 	private String description;
 	private ArrayList<String> ingredients;
+	
 	public String getTitle() {
 		return title;
 	}

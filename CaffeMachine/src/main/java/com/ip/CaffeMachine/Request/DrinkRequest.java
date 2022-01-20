@@ -6,6 +6,7 @@ public class DrinkRequest {
 	Double temperature;
 	Double sugar;
 	String liquid;
+	String recipeTitle;
 	
 	public String getTitle() {
 		return title;
@@ -30,5 +31,11 @@ public class DrinkRequest {
 	}
 	public void setLiquid(String liquid) {
 		this.liquid = liquid;
+	}
+	public String getRecipeTitle() {
+		return recipeTitle;
+	}
+	public void setRecipeTitle(String recipeTitle) {
+		this.recipeTitle = recipeTitle;
 	}
 }

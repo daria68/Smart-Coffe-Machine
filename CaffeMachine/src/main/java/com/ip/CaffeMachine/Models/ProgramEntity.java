@@ -22,34 +22,21 @@ public class ProgramEntity {
     private Long id; //primary key
 	private LocalTime startingTime;
 	private String day;
-	
+
 	@OneToOne(cascade = CascadeType.MERGE) //MERGE != ON DELETE CASCADE - ALL
-	@JoinColumn(name = "recipe_id", referencedColumnName = "id")
-	private RecipeEntity recipe;
-	
-	@OneToOne(cascade = CascadeType.MERGE)
-	@JoinColumn(name = "personalized_drink_id", referencedColumnName = "id")
-	// nullable e default true
-	private PresonalizedDrinkEntity personalizedDrink;
-	
+	@JoinColumn(name = "drink_id", referencedColumnName = "id")
+	private DrinkEntity drink;
+
 	@ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name="user_id", referencedColumnName = "userId")
     private UserEntity user;
 
-	public RecipeEntity getRecipe() {
-		return recipe;
+	public DrinkEntity getDrink() {
+		return drink;
 	}
 
-	public void setRecipe(RecipeEntity recipe) {
-		this.recipe = recipe;
-	}
-
-	public PresonalizedDrinkEntity getPersonalizedDrink() {
-		return personalizedDrink;
-	}
-
-	public void setPersonalizedDrink(PresonalizedDrinkEntity personalizedDrink) {
-		this.personalizedDrink = personalizedDrink;
+	public void setDrink(DrinkEntity drink) {
+		this.drink = drink;
 	}
 	
 	public Long getId() {
