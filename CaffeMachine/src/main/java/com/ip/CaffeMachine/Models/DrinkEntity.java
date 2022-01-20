@@ -25,10 +25,6 @@ public class DrinkEntity {
 	@OneToOne(mappedBy = "drink")
     private ProgramEntity program;
 	
-	@ManyToOne(cascade = CascadeType.MERGE)
-    @JoinColumn(name="user_id", referencedColumnName = "userId")
-    private UserEntity user;
-	
 	@OneToOne(cascade = CascadeType.MERGE) //MERGE != ON DELETE CASCADE - ALL
 	@JoinColumn(name = "recipe_id", referencedColumnName = "id")
 	private RecipeEntity recipe;
@@ -62,12 +58,6 @@ public class DrinkEntity {
 	}
 	public void setProgram(ProgramEntity program) {
 		this.program = program;
-	}
-	public UserEntity getUser() {
-		return user;
-	}
-	public void setUser(UserEntity user) {
-		this.user = user;
 	}
 	public String getTitle() {
 		return title;

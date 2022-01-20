@@ -12,7 +12,6 @@ public class CoffeMachineApplication {
 	private static UserEntity currentUser = null;
 	
 	public static void main(String[] args) {
-		//System.out.println(verifyIfIsDay());
 		SpringApplication.run(CoffeMachineApplication.class, args);
 	}
 	

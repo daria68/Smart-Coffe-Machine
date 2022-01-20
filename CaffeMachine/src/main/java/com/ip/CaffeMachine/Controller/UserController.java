@@ -1,6 +1,9 @@
 package com.ip.CaffeMachine.Controller;
 
 import java.util.List;
+import java.util.Optional;
+import java.util.Set;
+
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -15,7 +18,11 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.ip.CaffeMachine.CoffeMachineApplication;
 import com.ip.CaffeMachine.Exception.CustomException;
+import com.ip.CaffeMachine.Models.ProgramEntity;
 import com.ip.CaffeMachine.Models.UserEntity;
+import com.ip.CaffeMachine.Repo.DrinkRepo;
+import com.ip.CaffeMachine.Repo.ProgramRepo;
+import com.ip.CaffeMachine.Repo.RecipeRepo;
 import com.ip.CaffeMachine.Repo.UserRepo;
 import com.ip.CaffeMachine.Request.DayIntervalRequest;
 
@@ -26,6 +33,15 @@ public class UserController {
 
 	@Autowired
 	UserRepo userRepo;
+	
+	@Autowired
+	ProgramRepo programRepo;
+	
+	@Autowired
+	RecipeRepo recipeRepo;
+	
+	@Autowired
+	DrinkRepo drinkRepo;
 	
 	@PostMapping(path = "/register",
 				consumes = {MediaType.APPLICATION_JSON_VALUE} // good practice: sometimes Postman confuses them with XMLs (Oana)
@@ -52,7 +68,7 @@ public class UserController {
 			}
 		}
 		
-		return "User doesn't exists or the password is incorect!";
+		return "User doesn't exist or the password is incorect!";
 		
 	}
 	
@@ -66,18 +82,51 @@ public class UserController {
 	@PutMapping(path = "/update/{id}", 
 				consumes = {MediaType.APPLICATION_JSON_VALUE}
 	)
-	public String updateUser (@PathVariable long id, @RequestBody UserEntity user){
-		UserEntity updatedUser = userRepo.findById(id).get();
-		updatedUser.setUsername(user.getUsername());
+	public String updateUserNameOrPassword (@PathVariable long id, @RequestBody UserEntity user) {
+		UserEntity currentUser = CoffeMachineApplication.getCurrentUser();
+    	if(currentUser == null) {
+			throw new CustomException("You need to be logged in to do this operation!"); 
+		}
+    	
+		UserEntity updatedUser;
+		Optional<UserEntity> u = userRepo.findById(id);
+		if(u.isPresent() == false) {
+			return "User doesn't exist!";
+		}
+		updatedUser = u.get();
+		
+		if(user.getUsername() != null) {
+			updatedUser.setUsername(user.getUsername());
+		}
+		if(user.getPassword() != null) {
+			updatedUser.setPassword(user.getPassword());
+		}
 		userRepo.save(updatedUser);
+		CoffeMachineApplication.setCurrentUser(updatedUser);
 
 		return "User updated!";
 	}
 	
 	@DeleteMapping(path = "/delete/{id}")
 	public String deleteUser(@PathVariable long id){
-		UserEntity deleteUser = userRepo.findById(id).get();
+		UserEntity currentUser = CoffeMachineApplication.getCurrentUser();
+    	if(currentUser == null) {
+			throw new CustomException("You need to be logged in to do this operation!"); 
+		}
+    	
+		UserEntity deleteUser;
+		Optional<UserEntity> u = userRepo.findById(id);
+		if(u.isPresent() == false) {
+			return "User doesn't exist!";
+		}
+		deleteUser = u.get();
+		Set<ProgramEntity> programs = deleteUser.getPrograms();
+		for(ProgramEntity p: programs) {
+			programRepo.delete(p);
+			drinkRepo.delete(p.getDrink());
+		}
 		userRepo.delete(deleteUser);
+		CoffeMachineApplication.setCurrentUser(null);
 		return "User has been deleted!";
 	}
 	

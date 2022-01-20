@@ -1,5 +1,7 @@
 package com.ip.CaffeMachine.Controller;
 
+import java.util.Optional;
+
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -54,16 +56,15 @@ public class ProgramController {
     	
     	ModelMapper modelMapper = new ModelMapper();
     	ProgramEntity p = modelMapper.map(program, ProgramEntity.class);
-    	p.setUser(currentUser);
     	
     	DrinkEntity drink = modelMapper.map(program.getDrink(), DrinkEntity.class);
     	//I need to set the recipe and the user for drink
     	drink.setRecipe(recipeRepo.findByTitle(program.getDrink().getRecipeTitle()));
-    	drink.setUser(currentUser);
     	
     	// save the drink first because the programs FK refers drinks
     	drinkRepo.save(drink);
     	p.setDrink(drink);
+    	p.setUser(currentUser);
     	
     	programRepo.save(p);
     	
@@ -79,10 +80,12 @@ public class ProgramController {
 			throw new CustomException("You need to be logged in to do this operation!"); 
 		}
     	ModelMapper modelMapper = new ModelMapper();
-    	ProgramEntity program = programRepo.findById(programId).get();
-    	if(program == null) {
-    		throw new CustomException("The program doesn't exists in the DB");
-    	}
+    	ProgramEntity program;
+		Optional<ProgramEntity> u = programRepo.findById(programId);
+		if(u.isPresent() == false) {
+			throw new CustomException("The program doesn't exists in the DB");
+		}
+		program = u.get();
     	ProgramResponse response = modelMapper.map(program, ProgramResponse.class);
     	
     	return response;
@@ -115,9 +118,16 @@ public class ProgramController {
     }
 	
 	@DeleteMapping(path = "/delete/{programId}")
-	public String deleteUser(@PathVariable Long programId){
-		ProgramEntity deleteProgram = programRepo.findById(programId).get();
+	public String deleteProgram(@PathVariable Long programId){
+		ProgramEntity deleteProgram;
+		Optional<ProgramEntity> u = programRepo.findById(programId);
+		if(u.isPresent() == false) {
+			return "Program doesn't exist!";
+		}
+		deleteProgram = u.get();
+		DrinkEntity drink = drinkRepo.findById(deleteProgram.getDrink().getId()).get();
 		programRepo.delete(deleteProgram);
+		drinkRepo.delete(drink);
 		return "Program has been deleted!";
 	}
 }

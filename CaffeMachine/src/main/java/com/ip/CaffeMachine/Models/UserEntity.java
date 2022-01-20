@@ -20,10 +20,6 @@ public class UserEntity {
 	@OneToMany(mappedBy="user")
     private Set<ProgramEntity> programs;
 	
-	@OneToMany(mappedBy="user")
-    private Set<DrinkEntity> personalizedDrinks;
-
-	
 	public Long getUserId() {
 		return userId;
 	}
@@ -70,14 +66,6 @@ public class UserEntity {
 
 	public void setPrograms(Set<ProgramEntity> programs) {
 		this.programs = programs;
-	}
-
-	public Set<DrinkEntity> getPersonalizedDrinks() {
-		return personalizedDrinks;
-	}
-
-	public void setPersonalizedDrinks(Set<DrinkEntity> personalizedDrinks) {
-		this.personalizedDrinks = personalizedDrinks;
 	}
 
 }
