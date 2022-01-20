@@ -74,9 +74,7 @@ public class UserController {
 		return "User updated!";
 	}
 	
-	@DeleteMapping(path = "/delete/{id}", 
-				   consumes = {MediaType.APPLICATION_JSON_VALUE}
-	)
+	@DeleteMapping(path = "/delete/{id}")
 	public String deleteUser(@PathVariable long id){
 		UserEntity deleteUser = userRepo.findById(id).get();
 		userRepo.delete(deleteUser);
@@ -98,4 +96,5 @@ public class UserController {
     	userRepo.save(updatedUser);
     	return "Your day interval has been set";
     }
+	
 }

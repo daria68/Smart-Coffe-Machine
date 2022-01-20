@@ -1,6 +1,6 @@
 package com.ip.CaffeMachine.Models;
 
-import java.time.LocalDateTime;
+import java.time.LocalTime;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -19,37 +19,22 @@ public class ProgramEntity {
 
 	@Id 
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id; //primary key
-	private LocalDateTime starting_time;
+    private Long id; //primary key
+	private LocalTime startingTime;
+	private String day;
 	
-	@OneToOne(cascade = CascadeType.ALL)
+	@OneToOne(cascade = CascadeType.MERGE) //MERGE != ON DELETE CASCADE - ALL
 	@JoinColumn(name = "recipe_id", referencedColumnName = "id")
 	private RecipeEntity recipe;
 	
-	@OneToOne(cascade = CascadeType.ALL)
+	@OneToOne(cascade = CascadeType.MERGE)
 	@JoinColumn(name = "personalized_drink_id", referencedColumnName = "id")
 	// nullable e default true
-	private RecipeEntity personalizedDrink;
+	private PresonalizedDrinkEntity personalizedDrink;
 	
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name="user_id", referencedColumnName = "userId")
     private UserEntity user;
-
-	public long getId() {
-		return id;
-	}
-
-	public void setId(long id) {
-		this.id = id;
-	}
-
-	public LocalDateTime getStarting_time() {
-		return starting_time;
-	}
-
-	public void setStarting_time(LocalDateTime starting_time) {
-		this.starting_time = starting_time;
-	}
 
 	public RecipeEntity getRecipe() {
 		return recipe;
@@ -59,12 +44,44 @@ public class ProgramEntity {
 		this.recipe = recipe;
 	}
 
-	public RecipeEntity getPersonalizedDrink() {
+	public PresonalizedDrinkEntity getPersonalizedDrink() {
 		return personalizedDrink;
 	}
 
-	public void setPersonalizedDrink(RecipeEntity personalizedDrink) {
+	public void setPersonalizedDrink(PresonalizedDrinkEntity personalizedDrink) {
 		this.personalizedDrink = personalizedDrink;
+	}
+	
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public LocalTime getStartingTime() {
+		return startingTime;
+	}
+
+	public void setStartingTime(LocalTime startingTime) {
+		this.startingTime = startingTime;
+	}
+
+	public String getDay() {
+		return day;
+	}
+
+	public void setDay(String day) {
+		this.day = day;
+	}
+
+	public UserEntity getUser() {
+		return user;
+	}
+
+	public void setUser(UserEntity user) {
+		this.user = user;
 	}
 
 }
