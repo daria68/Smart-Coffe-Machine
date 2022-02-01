@@ -1,6 +1,7 @@
 package com.ip.CaffeMachine.Response;
 
 import java.time.LocalTime;
+import java.util.Objects;
 
 public class ProgramResponse {
 
@@ -33,6 +34,18 @@ public class ProgramResponse {
 	public void setDrink(DrinkResponse drink) {
 		this.drink = drink;
 	}
-	
-	
+
+
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (o == null || getClass() != o.getClass()) return false;
+		ProgramResponse that = (ProgramResponse) o;
+		return Objects.equals(startingTime, that.startingTime) && Objects.equals(day, that.day) && Objects.equals(recipe, that.recipe) && Objects.equals(drink, that.drink);
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(startingTime, day, recipe, drink);
+	}
 }

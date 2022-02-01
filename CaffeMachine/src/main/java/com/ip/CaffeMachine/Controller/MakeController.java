@@ -58,7 +58,7 @@ public class MakeController {
     	response.setLiquid(drink.getLiquid());
     	response.setSugar(drink.getSugar());
     	
-    	String description = recipeRepo.findByTitle(drink.getTitle()).getDescription();
+    	String description =  recipeRepo.findByTitle(drink.getRecipeTitle()).getDescription();
     	response.setDescription(description);
     	return response;
     	}
@@ -77,7 +77,7 @@ public class MakeController {
     	ModelMapper modelMapper = new ModelMapper();
     	DrinkRequest requestDrink = modelMapper.map(drink, DrinkRequest.class);
     	
-    	if(!verifyIfIsDay() && verifyIfContainsCoffe(requestDrink)) {
+    	if(!verifyIfIsDay() && verifyIfContainsCoffe(requestDrink)){
     		throw new CustomException("It's too late for coffee :)");
     	}else {
     	DrinkResponse response = new DrinkResponse();
@@ -93,7 +93,7 @@ public class MakeController {
     }
     
     private boolean verifyIfContainsCoffe(DrinkRequest drink) {
-    	ArrayList<String> ingredients = recipeRepo.findByTitle(drink.getTitle()).getIngredients();
+    	ArrayList<String> ingredients = recipeRepo.findByTitle(drink.getRecipeTitle()).getIngredients();
     	for(String ingredient: ingredients) {
     		if(ingredient.equalsIgnoreCase("coffee") || ingredient.contentEquals("espresso") || ingredient.equalsIgnoreCase("espresso")) {
     			return true;

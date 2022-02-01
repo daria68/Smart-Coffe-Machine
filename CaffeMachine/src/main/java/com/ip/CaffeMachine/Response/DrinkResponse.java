@@ -1,5 +1,7 @@
 package com.ip.CaffeMachine.Response;
 
+import java.util.Objects;
+
 public class DrinkResponse {
 
 	private String title;
@@ -38,5 +40,19 @@ public class DrinkResponse {
 	public void setDescription(String description) {
 		this.description = description;
 	}
-	
+
+
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(title, temperature, sugar, liquid, description);
+	}
+
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (o == null || getClass() != o.getClass()) return false;
+		DrinkResponse that = (DrinkResponse) o;
+		return Objects.equals(title, that.title) && Objects.equals(temperature, that.temperature) && Objects.equals(sugar, that.sugar) && Objects.equals(liquid, that.liquid) && Objects.equals(description, that.description);
+	}
 }
