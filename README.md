@@ -1,34 +1,35 @@
 # LazyCoffe - Automat de cafea pentru cei lenesi :coffee:
-Document de analiză a cerințelor clientului :clipboard:
+- [Endpoints & Sell Points](https://github.com/daria68/Smart-Coffe-Machine/blob/Stefania/Documents/Endpoints.md)
+- [Open API](https://github.com/daria68/Smart-Coffe-Machine/blob/Stefania/Documents/OpenApi.yaml)
+- [Documentatie de utilizare](https://github.com/daria68/Smart-Coffe-Machine/blob/Stefania/UtilizareDoc.md)
+- [Async API]()
+
+# Document de analiză a cerințelor clientului :clipboard:
 
 ## Scopul aplicației
-Contextul actual panedmic aduce cresterea numarului de persoane care lucrează remote, mari iubitoare de cafea și care isi doresc să cumpere un astfel de automat. Clientul va avea o experiență plăcută cu diferite tipuri de espresso, cappuccino si alte bauturi din confortul propriei locuințe sau chiar din afara acesteia. Acest protoptip isi propune sa usureze munca celor indeajuns de lenesi sa faca mai multe drumuri pana la automatul de cafea din bucatarie: sa verifice cantitatea de materie prima inaintea fiecarei folosiri, sa il porneasca, apoi sa se intoarca dupa cafea, sa uite ca l-au pornit si sa bea cafea rece. De asemenea, isi propune sa contribuie si la preventia bolilor datorate de consumului excesiv de cafea la ore tarzii, prin analizarea continua a factorilor externi, de mediu. 
+Contextul actual panedmic aduce cresterea numarului de persoane care lucrează remote, mari iubitoare de cafea și care isi doresc să cumpere un astfel de automat. Clientul va avea o experiență plăcută cu diferite tipuri de espresso, cappuccino, ceaiuri si alte bauturi din confortul propriei locuințe sau chiar din afara acesteia. Acest protoptip isi propune sa usureze munca celor indeajuns de lenesi sa faca mai multe drumuri pana la automatul de cafea din bucatarie. De asemenea, isi propune sa contribuie si la preventia bolilor datorate de consumului excesiv de cafea la ore tarzii, prin analizarea continua a factorilor externi. 
  
 ## Obiectivele aplicației
-- posibilitatea transformării într-o boxă de la distanță
 - selectarea tipului de băutură 
 - prepararea rețetelor personalizate
 - prepararea programată de la distanță, băutura fiind gata când utilizatorul ajunge acasă
-- selectarea din mai multe tipuri de lapte
-- selectarea cantității de zahăr dorit (de la 0 la 5 lingurițe, în funcție de pahar)
-- selectarea tipului de pahar (mic/mediu/mare)
-- curățare programată automată (ex - pe timp de noapte când nu este folosit) 
-- log off și log in pentru a oferi fiecarui utilizator posibilitatea creării unui program de folosire personalizat
+- program pe intreaga sapatamana
+- selectarea tipului de lichid dorit
+- selectarea cantității de zahăr dorit 
+- sistem de login pentru a oferi fiecarui utilizator posibilitatea creării unui program de folosire personalizat
 
 ## Grupul țintă
 - Ca student îmi doresc
-  - sa pot sa-l transform intr-o boxa portabila
   - pe perioada sesiunii sa pot sa-mi prepar cafea si pe timpul noptii
+  - sa nu devin dependent de cafea
 - Ca angajat full time îmi doresc să
   - sa am cafea gata dupa ce termin o sedinta/ cand ma trezesc
   - sa-l pot programa cu diverse tipuri de cafea in functie de ziua saptamanii
-  - curatare automata(programata) pe timpul noptii
 - Ca iubitor de cafea îmi doresc să
   - sa pot sa-mi personalizez retele
-  - sa selecteze gradul de macinare
 - Ca iubitor de cafea (cu diabet/diverse probleme de sănătate), îmi doresc să
   - sa controlez nivelul de zahar din băutură
-  - dupa o anumita oră sa nu ma mai lase sa-mi prepar cafea 
+  - dupa o anumita oră sa nu ma mai lase sa-mi prepar cafea (reduce dependenta de cafea) 
 - Ca persoană care nu bea deloc cafea, dar iubeste ceaiurile/ciocolata caldă, îmi doresc să
   - pot alege dintr-o varietate de sortimente de ceai
 - Ca persoană vegană/vegetariană, îmi doresc să
@@ -37,44 +38,40 @@ Contextul actual panedmic aduce cresterea numarului de persoane care lucrează r
 
 ## Colectarea cerințelor
 - Pregătirea cafelei de la distanță 
-- Posibilitatea alegerii dintr-o gama variată de arome/ tipuri de lichide/ ceaiuri
+- Posibilitatea alegerii dintr-o gama variată de arome/ tipuri de lichide/ ceaiuri/ ciocolata calda
 - Realizare a unor rețete personalizate 
-- Selectarea gradului de macinare 
 - Salvaree a rețetelor compuse pentru a putea fi folosite ulterior
 - Control asupra cantitatilor (zahar, lapte, apa)
 - Autosesizare zi-noapte
 - Functionarea dupa un program personlizat de-a lungul unei saptamani
-- Incarcare melodie/ playlist 
-- Notificari de tipul - ready
-- Curatare automata
 - Personalizarea functiilor care interactioneaza cu mediul inconjurator
 
 ## Interpretarea și prioritizarea cerințelor 
 
 ### Cerințe funcționale
-Nevoi care au reieșit dintr-un user story, și răspund la întrebarea: ce trebuie aplicația să facă?
+Ce trebuie aplicația să facă?
 
 - sistem de login
 - meniu pentru diverse categorii
-- notificari in bara de stare
+- diverse notificari 
 - interfata sugestiva
  
 ### Cerințe nonfuncționale
-Descriu calitati de sistem, răspund întrebărilor de tipul cum trebuie să fie un anumit feature sau aplicația cu totul?
+Cum trebuie să fie un anumit feature sau aplicația cu totul?
 
-- automatul trebuie sa aiba o boxa incorporata
-- automatul trebuie sa aiba senzori de lumina
-- automatul trebuie sa aiba posibilitatea reglarii gradului de macinare
-- automatul trebuie sa aiba functia de curatare automata
-- automatul trebuie sa aiba container pentru stocarea paharelor de diferite dimensiuni
-- automatul trebuie sa aiba functie pentru reglarea cantitatii de indulcitor
-- automatul trebuie sa aiba posibilitatea alegerii din diverse tipuri de ceaiuri
+- automatul trebuie sa aiba functie pentru reglarea cantitatii de zahar
+- automatomatul trebuie sa poate stoca mai multe tipuri de cafea in acelasi timp
+-  automatomatul trebuie sa poate stoca mai multe tipuri de ceai in acelasi timp
+- automatomatul trebuie sa poate stoca mai multe tipuri de ciocolata calda in acelasi timp
+-  automatomatul trebuie sa poate stoca mai multe tipuri de lichide in acelasi timp
+- automatomatul trebuie sa aiba un procesor integrat
+- automatomatul trebuie sa se poate conecta la internet prin wifi
 
 # Alocarea rolurilor
-:ghost: Oana: design aplicatie
+:ghost: Oana: endpoints God, design baza de date 
 
-:space_invader: Viju: server, comunicarea cu internetul
+:space_invader: Viju: CRUD and documentatie God
 
-:alien: Daria: design aplicatie
+:alien: Daria: testing dream team, design baza de date
 
-:robot: Vero: server, comunicarea cu internetul
+:robot: Vero: testing dream team, design baza de date

@@ -1,0 +1,55 @@
+asyncapi: 2.3.0
+info:
+  title: Caffee Machine API
+  version: 1.0.0
+  description: >-
+    Aceasta aplicatie este folosita pentru iubitorii de bauturi calde care
+    doresc sa isi pregateasca bautura de la distanta
+channels:
+  user/register:
+    subscribe:
+      message:
+        $ref: '#/components/messages/register'
+  user/login:
+    subscribe:
+      message:
+        $ref: '#/components/messages/login'
+  programs/create:
+    subscribe:
+      message:
+        $ref: '#/components/messages/create'
+components:
+  messages:
+    register:
+      payload:
+        type: object
+        properties:
+          username:
+            type: string
+            description: Usernameul utilizatorului
+          password:
+            type: string
+            description: Parola utilizatorului
+    login:
+      payload:
+        type: object
+        properties:
+          username:
+            type: string
+            description: Usernameul utilizatorului care vrea sa se conecteze
+          password:
+            type: string
+            description: Parola utilizatorului care doreste sa se conecteze
+    create:
+      payload:
+        type: object
+        properties:
+          startingTime:
+            type: string
+            description: Data in care se defineste noul program
+          day:
+            type: string
+            description: Ziua in care se face respectivul program
+          drink:
+            type: string
+            description: Creeara bauturii dorite

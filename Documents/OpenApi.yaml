@@ -10,7 +10,7 @@ tags:
 - name: users
   description: Operations about user
 - name: programs
-  description: Idk yet
+  description: Programs that we will use
 schemes:
 - https
 - http
