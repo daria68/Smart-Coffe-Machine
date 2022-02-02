@@ -1,0 +1,64 @@
+[
+    {
+        "title": "White hot chocolate",
+        "description": "White Hot Chocolate is a rich and creamy decadent drink that melts in your mouth with a smooth, sweet white chocolate and vanilla flavoring. Warm up with this white hot chocolate during the holiday season! Warm drinks make winter season even better.",
+        "ingredients": [
+            "Milk",
+            "White chocolate",
+            "Whipped cream"
+        ],
+        "id": 21
+    },
+    {
+        "title": "Classic hot chocolate",
+        "description": "Steamed milk and mocha sauce topped with sweetened whipped cream and a chocolate-flavoured drizzle.",
+        "ingredients": [
+            "Milk",
+            "Black chocolate",
+            "Whipped cream"
+        ],
+        "id": 22
+    },
+    {
+        "title": "Salted caramel hot chocolate",
+        "description": "Milk, dark chocolate and salted caramel sauce are simmered together with a blend of rich, warming spices in this luxurious hot chocolate.",
+        "ingredients": [
+            "Milk",
+            "Salted caramel",
+            "Black chocolate"
+        ],
+        "id": 23
+    },
+    {
+        "title": "Green tea",
+        "description": "Rich in antioxidants and reduces inflammation.",
+        "ingredients": [
+            "Green tea"
+        ],
+        "id": 24
+    },
+    {
+        "title": "Balck tea",
+        "description": "Boosts heart health and lowers cholesterol.",
+        "ingredients": [
+            "Black tea"
+        ],
+        "id": 25
+    },
+    {
+        "title": "Chamomile tea",
+        "description": "Lowers blood sugar and prevents osteoporosis.",
+        "ingredients": [
+            "Chamomile tea"
+        ],
+        "id": 27
+    },
+    {
+        "title": "Berry tea",
+        "description": "Supports cardiovascular health by helping to lower cholestrol levels, reduce blood pressure and decrease the risk of heart attack and stroke.",
+        "ingredients": [
+            "Berry tea"
+        ],
+        "id": 28
+    }
+]
