@@ -2,6 +2,7 @@ package com.ip.CaffeMachine.Controller;
 
 import java.util.Optional;
 
+import com.ip.CaffeMachine.MqttGateway;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -44,7 +45,9 @@ public class ProgramController {
 	
 	@Autowired
 	DrinkRepo drinkRepo;
-	
+
+	@Autowired
+	MqttGateway mqttGateway;
 	@PostMapping(path= "/create", 
 			consumes = {MediaType.APPLICATION_JSON_VALUE}
     )
@@ -67,7 +70,7 @@ public class ProgramController {
     	p.setUser(currentUser);
     	
     	programRepo.save(p);
-    	
+		mqttGateway.senToMqtt("The new program was create", "mytopic");
     	return "New program was created!";
     }
 	
@@ -87,7 +90,9 @@ public class ProgramController {
 		}
 		program = u.get();
     	ProgramResponse response = modelMapper.map(program, ProgramResponse.class);
-    	
+		String text;
+		text = "You choose program no. " + programId.toString();
+		mqttGateway.senToMqtt(text, "mytopic");
     	return response;
     }
 	
@@ -113,7 +118,9 @@ public class ProgramController {
     	drinkRepo.save(updatedDrink);
     	
     	programRepo.save(updatedProgram);
-    	
+		String text;
+		text = "The program no. " + programId.toString() + "was update";
+		mqttGateway.senToMqtt(text, "mytopic");
     	return "Program was updated!";
     }
 	
@@ -128,6 +135,9 @@ public class ProgramController {
 		DrinkEntity drink = drinkRepo.findById(deleteProgram.getDrink().getId()).get();
 		programRepo.delete(deleteProgram);
 		drinkRepo.delete(drink);
+		String text;
+		text = "You choose to delete program no. " + programId.toString();
+		mqttGateway.senToMqtt(text, "mytopic");
 		return "Program has been deleted!";
 	}
 }

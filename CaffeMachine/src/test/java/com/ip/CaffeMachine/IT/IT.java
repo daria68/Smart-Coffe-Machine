@@ -57,25 +57,24 @@ class IT {
     public void setup() throws Exception {
         this.mockMvc = MockMvcBuilders.webAppContextSetup(this.webApplicationContext).build();
     }
-    @BeforeEach
-    void loginUser(){
-        UserEntity user = new UserEntity();
-        user.setUserId(Long.valueOf(1));
-        user.setPassword("123");
-        user.setUsername("oana");
-        userController.loginUser(user);
-    }
 
 
     @Test
-    void makeDrink_addProgram_getProgram() throws Exception {
+    void LoginUser_makeDrink_addProgram_getProgram() throws Exception {
+        UserEntity user = new UserEntity();
+        user.setPassword("123");
+        user.setUsername("oana");
+        String jsonRequest = mapper.writeValueAsString(user);
+        mockMvc
+                .perform(get("/users/login").content(jsonRequest).contentType(MediaType.APPLICATION_JSON)).andDo(print())
+                .andReturn();
         DrinkRequest drinkRequest = new DrinkRequest();
         drinkRequest.setTemperature(40.0);
         drinkRequest.setSugar(2.0);
         drinkRequest.setLiquid("Milk");
         drinkRequest.setTitle("Black");
         drinkRequest.setRecipeTitle("Berry tea");
-        String jsonRequest = mapper.writeValueAsString(drinkRequest);
+        jsonRequest = mapper.writeValueAsString(drinkRequest);
         MvcResult result = mockMvc
                 .perform(get("/make").content(jsonRequest).contentType(MediaType.APPLICATION_JSON)).andDo(print())
                 .andReturn();

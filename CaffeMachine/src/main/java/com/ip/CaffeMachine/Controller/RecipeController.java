@@ -3,6 +3,7 @@ package com.ip.CaffeMachine.Controller;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import com.ip.CaffeMachine.MqttGateway;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.ResourceUtils;
@@ -25,7 +26,9 @@ public class RecipeController {
     
     @Autowired
     RecipeRepo recipeRepo;
-    
+
+	@Autowired
+	MqttGateway mqttGateway;
     @PostMapping(path = "/insert")
     public void processSampleAPI() {
     	ArrayList<RecipeEntity> list = (ArrayList<RecipeEntity>) recipeRepo.findAll();
@@ -58,8 +61,9 @@ public class RecipeController {
 	            	recipeRepo.save(drink);
 	            }
 	        } catch (IOException e) {
-	            e.printStackTrace();
-	        }
+				e.printStackTrace();
+			}
+			mqttGateway.senToMqtt("The recipes was insert", "mytopic");
 	       
 	    }
     }

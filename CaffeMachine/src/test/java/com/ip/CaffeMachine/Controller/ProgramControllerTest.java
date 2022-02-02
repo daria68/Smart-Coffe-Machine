@@ -52,9 +52,9 @@ public class ProgramControllerTest {
         drink.setSugar(2.0);
         drink.setLiquid("Milk");
         drink.setTitle("Black");
-        drink.setRecipe( recipeRepo.findByTitle("Black"));
-
+     //   drink.setRecipe( recipeRepo.findByTitle("Black"));
         program.setDrink(drink);
+        program.setDay("Friday");
         ModelMapper modelMapper = new ModelMapper();
         ProgramRequest p = modelMapper.map(program, ProgramRequest.class);
         String response = programController.createProgram(p);

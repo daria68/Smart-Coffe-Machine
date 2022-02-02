@@ -42,15 +42,14 @@ class UserControllerTest {
     void createUser() throws Exception {
 
         UserEntity user = new UserEntity();
-        user.setPassword("1234");
-        user.setUsername("oana_2");
+        user.setPassword("123");
+        user.setUsername("oana");
         String jsonRequest = mapper.writeValueAsString(user);
 
         MvcResult result = mockMvc
                 .perform(post("/users/register").content(jsonRequest).contentType(MediaType.APPLICATION_JSON)).andDo(print())
                 .andReturn();
-        assertEquals("New user has been created!", result.getResponse().getContentAsString());
-
+        assertEquals("This username already exists", result.getResponse().getContentAsString());
     }
     @Test
     void loginUser() throws Exception {

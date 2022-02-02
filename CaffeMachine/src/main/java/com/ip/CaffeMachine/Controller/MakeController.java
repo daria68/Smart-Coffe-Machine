@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
+import com.ip.CaffeMachine.MqttGateway;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -40,7 +41,8 @@ public class MakeController {
 	
 	@Autowired
 	DrinkRepo drinkRepo;
-    
+	@Autowired
+	MqttGateway mqttGateway;
     @GetMapping( 
     			consumes = {MediaType.APPLICATION_JSON_VALUE},
     			produces = {MediaType.APPLICATION_JSON_VALUE}
@@ -48,19 +50,23 @@ public class MakeController {
     public DrinkResponse makeDrink(@RequestBody DrinkRequest drink) {
     	// if it's night time do not let the user make coffe
     	// make drink without saving into the database
-    	
+
+
     	if(!verifyIfIsDay() && verifyIfContainsCoffe(drink)) {
     		throw new CustomException("It's too late for coffee :)");
+
     	}else {
     	DrinkResponse response = new DrinkResponse();
     	response.setTitle(drink.getTitle());
     	response.setTemperature(drink.getTemperature());
     	response.setLiquid(drink.getLiquid());
     	response.setSugar(drink.getSugar());
-    	
+
     	String description =  recipeRepo.findByTitle(drink.getRecipeTitle()).getDescription();
     	response.setDescription(description);
+		mqttGateway.senToMqtt("The drink is done", "mytopic");
     	return response;
+
     	}
     }
     
@@ -88,6 +94,10 @@ public class MakeController {
     	
     	String description = drink.getRecipe().getDescription();
     	response.setDescription(description);
+
+		String text;
+		text = "The drink from program no. " + programId.toString() + " is done!";
+		mqttGateway.senToMqtt(text, "mytopic");
     	return response;
     	}
     }

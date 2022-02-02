@@ -5,6 +5,7 @@ import java.util.Optional;
 import java.util.Set;
 
 
+import com.ip.CaffeMachine.MqttGateway;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -42,7 +43,10 @@ public class UserController {
 	
 	@Autowired
 	DrinkRepo drinkRepo;
-	
+
+	@Autowired
+	MqttGateway mqttGateway;
+
 	@PostMapping(path = "/register",
 				consumes = {MediaType.APPLICATION_JSON_VALUE} // good practice: sometimes Postman confuses them with XMLs (Oana)
 	)
@@ -52,6 +56,7 @@ public class UserController {
 		}
 	
 		userRepo.save(user);
+		mqttGateway.senToMqtt("The user was create", "mytopic");
 		return "New user has been created!";
 	}
 	
@@ -62,12 +67,12 @@ public class UserController {
 		List<UserEntity> allUsers = userRepo.findAll();
 		
 		for(UserEntity u : allUsers) {
-			if(user.getUsername().equals(u.getUsername()) && user.getPassword().equals(u.getPassword())) {
+			if (user.getUsername().equals(u.getUsername()) && user.getPassword().equals(u.getPassword())) {
 				CoffeMachineApplication.setCurrentUser(u);
 				return "User has logged in!";
 			}
 		}
-		
+		mqttGateway.senToMqtt("Success connect", "mytopic");
 		return "User doesn't exist or the password is incorect!";
 		
 	}
@@ -75,6 +80,8 @@ public class UserController {
 	@GetMapping(path = "/logout")
 	public String logoutUser(){
 		CoffeMachineApplication.setCurrentUser(null);
+
+		mqttGateway.senToMqtt("Success LogOut", "mytopic");
 		return "You logged out! See you next time :)";
 		
 	}
@@ -103,7 +110,7 @@ public class UserController {
 		}
 		userRepo.save(updatedUser);
 		CoffeMachineApplication.setCurrentUser(updatedUser);
-
+		mqttGateway.senToMqtt("User update", "mytopic");
 		return "User updated!";
 	}
 	
@@ -127,6 +134,8 @@ public class UserController {
 		}
 		userRepo.delete(deleteUser);
 		CoffeMachineApplication.setCurrentUser(null);
+
+		mqttGateway.senToMqtt("User deleted", "mytopic");
 		return "User has been deleted!";
 	}
 	
@@ -143,6 +152,8 @@ public class UserController {
     	updatedUser.setDayStart(interval.getDayStart());
     	updatedUser.setDayEnd(interval.getDayEnd());
     	userRepo.save(updatedUser);
+
+		mqttGateway.senToMqtt("Interval updated", "mytopic");
     	return "Your day interval has been set";
     }
 	

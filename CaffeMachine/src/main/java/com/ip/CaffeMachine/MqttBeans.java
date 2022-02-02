@@ -64,7 +64,7 @@ public class MqttBeans {
             public void handleMessage(Message<?> message) throws MessagingException {
                 String topic = message.getHeaders().get(MqttHeaders.RECEIVED_TOPIC).toString();
                 if (topic.equals("mytopic")) {
-                    System.out.println("This is the topic");
+                    System.out.println("This is the mqtt messange");
                 }
                 System.out.println(message.getPayload());
             }

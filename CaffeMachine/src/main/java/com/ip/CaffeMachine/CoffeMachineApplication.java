@@ -27,5 +27,7 @@ public class CoffeMachineApplication {
 	public static UserEntity getCurrentUser() {
 		return currentUser;
 	}
+
+
 	
 }
