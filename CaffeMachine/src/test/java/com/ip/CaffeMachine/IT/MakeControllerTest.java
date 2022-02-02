@@ -93,7 +93,6 @@ class MakeControllerTest {
         Long programId = Long.valueOf(1);
         ProgramEntity program = programRepo.findById(programId).get();
         DrinkEntity drink = drinkRepo.findById(program.getDrink().getId()).get();
-
         DrinkResponse response = new DrinkResponse();
         response.setTitle(drink.getTitle());
         response.setTemperature(drink.getTemperature());
